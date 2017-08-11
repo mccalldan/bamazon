@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var prompt = require('prompt');
 var colors = require('colors/safe');
 var Table = require('cli-table');
+
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
@@ -36,7 +37,7 @@ prompt.get(managerOptions, function(err, res){
 	} else if(res.mOptions ==4){
 		addNewProduct();
 	} else {
-		console.log('You picked an invalid choice.');
+		console.log('You made an incorrect choice.');
 		connection.end();
 	}
 });
@@ -46,7 +47,7 @@ var viewProducts = function(){
 	
 	connection.query('SELECT * FROM Products', function(err, res){
 		console.log('');
-		console.log('Products for Sale')
+		console.log('Products')
 		console.log('');	
 
 		
@@ -75,10 +76,10 @@ var viewProducts = function(){
 
 var viewInventory = function(){
 
-	//starts the connection to the mysql database Products and only returns items that have a stock quantity of less than 5
+	
 	connection.query('SELECT * FROM Products WHERE StockQuantity < 5', function(err, res){
 		console.log('');
-		console.log('Items With Low Inventory');
+		console.log('Low Inventory Items');
 		console.log('');
 
 		var table = new Table({
